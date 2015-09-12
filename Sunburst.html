@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>first ordered items freez the most equity or in other terms (stock * price > stock * price)</title>
+    <link rel="stylesheet" type="text/css" href="css/ex.css"/>
+    <script type="text/javascript" src="js/protovis-r3.2.js"></script>
+    <script type="text/javascript" src="js/products.js"></script>
+    <script type="text/javascript" src="js/manufacturer.js"></script>
+    <script type="text/javascript" src="js/category.js"></script>
+    <style type="text/css">
+body {
+overflow:hidden;
+overflow-y:scroll;
+  margin:10px;}
+
+select {
+
+position:fixed;
+top:30px;
+left:10px;
+
+}
+#top{
+
+position:fixed;
+top:10px;
+left:10px;
+
+}
+
+    </style>
+  </head>
+  <body>
+
+    <div id="center">
+    <div id="top">first ordered items freez the most equity or in other terms (stock * price > stock * price)</div>
+ <select id="menu" onchange="update(this.value)">
+      <option value="category">category</option>
+      <option value="products">products</option>
+      <option value="manufacturer" selected>manufacturer</option>
+    </select>
+    <div id="fig">
+</div></div>
+    <script type="text/javascript+protovis">
+
+var vis = new pv.Panel()
+    .width(window.innerWidth*2)
+    .height(window.innerHeight*2)
+    .left(-window.innerHeight*0.9)
+    .bottom(20);
+
+var partition = vis.add(pv.Layout.Partition.Fill)
+    .nodes(pv.dom(products).root("total stock").nodes())
+    .size(function(d) d.nodeValue)
+    .order("descending")
+    .orient("radial");
+
+partition.node.add(pv.Wedge)
+    .fillStyle(pv.Colors.category19().by(function(d) d.parentNode && d.parentNode.nodeName))
+    .strokeStyle("#fff")
+    .lineWidth(.5);
+
+partition.label.add(pv.Label)
+    .visible(function(d) d.angle * d.outerRadius >= 6);
+
+vis.render();
+
+/* Update the layout's size method and re-render. */
+function update(method) {
+  switch (method) {
+    case "products":
+    partition = vis.add(pv.Layout.Partition.Fill)
+    .nodes(pv.dom(products).root("products").nodes())
+    .size(function(d) d.nodeValue)
+    .order("descending")
+    .orient("radial");
+
+partition.node.add(pv.Wedge)
+    .fillStyle(pv.Colors.category19().by(function(d) d.parentNode && d.parentNode.nodeName))
+    .strokeStyle("#fff")
+    .lineWidth(.5);
+
+partition.label.add(pv.Label)
+    .visible(function(d) d.angle * d.outerRadius >= 6);
+
+
+     break;
+    case "category":
+
+
+    partition = vis.add(pv.Layout.Partition.Fill)
+    .nodes(pv.dom(category).root("category").nodes())
+    .size(function(d) d.nodeValue)
+    .order("descending")
+    .orient("radial");
+
+partition.node.add(pv.Wedge)
+    .fillStyle(pv.Colors.category19().by(function(d) d.parentNode && d.parentNode.nodeName))
+    .strokeStyle("#fff")
+    .lineWidth(.5);
+
+partition.label.add(pv.Label)
+    .visible(function(d) d.angle * d.outerRadius >= 6);
+
+
+     break;
+    case "manufacturer":
+
+partition = vis.add(pv.Layout.Partition.Fill)
+    .nodes(pv.dom(manufacturer).root("manufacturer").nodes())
+    .size(function(d) d.nodeValue)
+    .order("descending")
+    .orient("radial");
+
+partition.node.add(pv.Wedge)
+    .fillStyle(pv.Colors.category19().by(function(d) d.parentNode && d.parentNode.nodeName))
+    .strokeStyle("#fff")
+    .lineWidth(.5);
+
+partition.label.add(pv.Label)
+    .visible(function(d) d.angle * d.outerRadius >= 6);
+
+
+     break;
+  }
+  vis.render();
+}
+
+    </script>
+
+  </body>
+</html>
