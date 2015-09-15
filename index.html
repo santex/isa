@@ -1,56 +1,62 @@
-<!DOCTYPE html>
+
+    <!DOCTYPE html>
 <html>
   <head>
     <title>first ordered items freez the most equity or in other terms (stock * price > stock * price)</title>
-    <link rel="stylesheet" type="text/css" href="css/ex.css"/>
-    <script type="text/javascript" src="js/protovis-r3.2.js"></script>
-    <script type="text/javascript" src="js/products.js"></script>
-    <script type="text/javascript" src="js/manufacturer.js"></script>
-    <script type="text/javascript" src="js/category.js"></script>
-    <style type="text/css">
-body {
-overflow:hidden;
-overflow-y:scroll;
-  margin:10px;}
+    <link rel="stylesheet" type="text/css" href="assets/css/ex.css"/>
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
 
-select {
-
-position:fixed;
-top:30px;
-left:10px;
-
-}
-#top{
-
-position:fixed;
-top:10px;
-left:10px;
-
-}
-
-    </style>
+    <script type="text/javascript" src="assets/js/protovis-r3.2.js"></script>
+    <script type="text/javascript" src="assets/data/manufacturer.js"></script>
+    <script type="text/javascript" src="assets/data/category.js"></script>
   </head>
   <body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="background-color:#081725;">
 
-    <div id="center">
-    <div id="top">first ordered items freez the most equity or in other terms (stock * price > stock * price)</div>
- <select id="menu" onchange="update(this.value)">
-      <option value="category">category</option>
-      <option value="products">products</option>
-      <option value="manufacturer" selected>manufacturer</option>
-    </select>
-    <div id="fig">
-</div></div>
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#"><span class="w">sunburst</span>&nbsp;<span class="r"><b>stock inventory</b>
+                  </span>&nbsp;<span class="w">/ by stock value $</span></a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="scollapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+                  <ul class="nav navbar-nav">
+                    <li><a href="#"><span class="w">vantage point:</span></a></li>
+                    <li>
+                        <a href="#categorys"  onclick="update('category');">categorys</a>
+                    </li>
+                    <li>
+                        <a href="#manufacturers" onclick="update('manufacturer');">manufacturers</a>
+                    </li>
+
+                </ul>
+
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+    <div id="center"><div id="fig"></div></div>
+
     <script type="text/javascript+protovis">
 
 var vis = new pv.Panel()
-    .width(window.innerWidth*2)
-    .height(window.innerHeight*2)
-    .left(-window.innerHeight*0.9)
-    .bottom(20);
+    .width(window.innerWidth*1.9)
+    .height(window.innerHeight*1.9)
+    .left(-window.innerWidth*0.45)
+    .top(55);
 
 var partition = vis.add(pv.Layout.Partition.Fill)
-    .nodes(pv.dom(products).root("total stock").nodes())
+    .nodes(pv.dom(category).root("category").nodes())
     .size(function(d) d.nodeValue)
     .order("descending")
     .orient("radial");
@@ -68,23 +74,6 @@ vis.render();
 /* Update the layout's size method and re-render. */
 function update(method) {
   switch (method) {
-    case "products":
-    partition = vis.add(pv.Layout.Partition.Fill)
-    .nodes(pv.dom(products).root("products").nodes())
-    .size(function(d) d.nodeValue)
-    .order("descending")
-    .orient("radial");
-
-partition.node.add(pv.Wedge)
-    .fillStyle(pv.Colors.category19().by(function(d) d.parentNode && d.parentNode.nodeName))
-    .strokeStyle("#fff")
-    .lineWidth(.5);
-
-partition.label.add(pv.Label)
-    .visible(function(d) d.angle * d.outerRadius >= 6);
-
-
-     break;
     case "category":
 
 

@@ -1,0 +1,22 @@
+.w {color:#fff;}
+.r {color:#ff0000;}
+#center {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+#fig {
+  position: fixed;
+  top:20px;
+  left:20px;
+  margin: auto;
+}
+body{
+overflow:hidden;
+overflow-y:scroll;
+  margin:10px;}
+
+.tn{
+  background:#081725;
+  height:32px;
+}
