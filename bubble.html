@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>first ordered items freez the most equity or in other terms (stock * price > stock * price)</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/ex.css"/>
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
+    <script type="text/javascript" src="assets/js/jquery.min.js"></script>
+    <script type="text/javascript" src="assets/js/d3.min.js"></script>
+    <script type="text/javascript" src="assets/js/protovis-r3.2.js"></script>
+    <script type="text/javascript" src="assets/data/manufacturer.js"></script>
+    <script type="text/javascript" src="assets/data/category.js"></script>
+    <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
+
+
+
+  </head>
+  <body>
+
+<div class="container">
+
+ <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="background-color:#081725;">
+
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#"><span class="w">sunburst</span>&nbsp;<span class="r"><b>stock inventory</b>
+                  </span>&nbsp;<span class="w">/ by stock value $</span></a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="scollapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+                    <ul class="nav navbar-nav" id="myTabs">
+                                 <li><a href="#"><span class="w">vantage point:</span></a></li>
+                    <li>
+                        <a href="#categorys"  onclick="update('category');" data-toggle="tab">categorys</a>
+                    </li>
+                    <li>
+                        <a href="#manufacturers" onclick="update('manufacturer');" data-toggle="tab">manufacturers</a>
+                    </li>
+
+                    <li>
+                        <a href="#tree" onclick="update('tree');" data-toggle="tab">tree map</a>
+                    </li>
+
+
+                        <li><a href="#home" data-toggle="tab">Home</a></li>
+                        <li><a href="#foo"  data-toggle="tab">Foo</a></li>
+                        <li><a href="#bar"  data-toggle="tab">Bar</a></li>
+                    </ul>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+</div>
+<br><br>
+<div class="container">
+  <div class="tabbable">
+
+
+      <div class="tab-content"  style="position:fixed;top:50px;left:0px;width:100%;">
+          <div class="tab-pane active" id="home"></div>
+          <div class="tab-pane" id="foo"></div>
+          <div class="tab-pane" id="bar">Some static text. (displayed if AJAX request fails)</div>
+      </div>
+  </div>
+</div>
+<script>
+    $(function() {
+        var baseURL = 'http://localhost/isa2/assets/ajax/';
+        //load content for first tab and initialize
+        $('#home').load(baseURL+'home', function() {
+            $('#myTabs').tab(); //initialize tabs
+        });
+        $('#myTabs').bind('show', function(e) {
+           var pattern=/#.+/gi //use regex to get anchor(==selector)
+           var contentID = e.target.toString().match(pattern)[0]; //get anchor
+           //load content for selected tab
+            $(contentID).load(baseURL+contentID.replace('#',''), function(){
+                $('#myTabs').tab(); //reinitialize tabs
+            });
+        });
+    });
+</script>
